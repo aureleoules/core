@@ -16,7 +16,7 @@ import (
 // GetGoogleCloudClient : Return google cloud client
 func GetGoogleCloudClient(ctx context.Context) (*storage.Client, error) {
 
-	log.Println(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS"))
+	// Use ./google_credentials.json by default
 	if os.Getenv("GOOGLE_APPLICATION_CREDENTIALS") == "" {
 		log.Println("Local file credentials")
 		os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "./google_credentials.json")
@@ -24,14 +24,8 @@ func GetGoogleCloudClient(ctx context.Context) (*storage.Client, error) {
 		return client, err
 	}
 
-	log.Print("environnement variables")
-	// cred := google.Credentials{
-	// 	JSON: []byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")),
-	// 	TokenSource
-	// }
-
+	// Use env variables
 	client, err := storage.NewClient(ctx, option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS"))))
-	log.Println(err)
 	return client, err
 }
 
