@@ -21,6 +21,20 @@ func loadConfiguration(file string) (models.Config, error) {
 
 //GetConfig returns config object
 func GetConfig() models.Config {
-	config, _ := loadConfiguration("./config.json")
+	// Use by default ./config.json
+	config, err := loadConfiguration("./config.json")
+	if err != nil {
+		// If it doesn't exist, take environnement variables
+		config = models.Config{
+			URI:           os.Getenv("MONGODB_URI"),
+			Database:      os.Getenv("DATABASE"),
+			Secret:        os.Getenv("SECRET"),
+			GmailAddress:  os.Getenv("GMAIL_ADDRESS"),
+			GmailPassword: os.Getenv("GMAIL_PASSWORD"),
+			StripeKey:     os.Getenv("STRIPE_KEY"),
+			BucketName:    os.Getenv("BUCKET_NAME"),
+		}
+		return config
+	}
 	return config
 }
