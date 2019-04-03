@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+production:
+  stage: deploy
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+  - dpl --provider=heroku --app=backpulse --api-key=$HEROKU_API_KEY
+  environment:
+    name: Production
+    url: https://backpulse.herokuapp.com/
+  only:
+  - master
+  when: always

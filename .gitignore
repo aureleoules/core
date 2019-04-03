@@ -1,0 +1,5 @@
+vendor/
+*.exe
+config.json
+backpulse.json
+google_credentials.json

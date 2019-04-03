@@ -1,0 +1,9 @@
+{
+    "URI": "mongodb://...",
+    "Database": "-",
+    "Secret": "-",
+    "GmailAddress": "-",
+    "GmailPassword": "-",
+    "StripeKey": "-",
+    "BucketName": "-"
+}

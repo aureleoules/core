@@ -1,0 +1,62 @@
+package database
+
+import (
+	"time"
+
+	"github.com/backpulse/core/models"
+	"gopkg.in/mgo.v2/bson"
+)
+
+func AddVideo(video models.Video) error {
+	video.UpdatedAt = time.Now()
+	video.CreatedAt = time.Now()
+	err := DB.C(videosCollection).Insert(video)
+	return err
+}
+
+func GetVideo(videoID bson.ObjectId) (models.Video, error) {
+	var video models.Video
+	err := DB.C(videosCollection).FindId(videoID).One(&video)
+	return video, err
+}
+
+func GetGroupVideos(id bson.ObjectId) ([]models.Video, error) {
+	var videos []models.Video
+	err := DB.C(videosCollection).Find(bson.M{
+		"video_group_id": id,
+	}).All(&videos)
+	return videos, err
+}
+
+func UpdateVideo(id bson.ObjectId, video models.Video) error {
+	err := DB.C(videosCollection).UpdateId(id, bson.M{
+		"$set": bson.M{
+			"title":       video.Title,
+			"content":     video.Content,
+			"youtube_url": video.YouTubeURL,
+		},
+	})
+	return err
+}
+
+func RemoveVideo(id bson.ObjectId) error {
+	err := DB.C(videosCollection).RemoveId(id)
+	return err
+}
+
+func UpdateVideosIndexes(siteID bson.ObjectId, videos []models.Video) error {
+	for _, video := range videos {
+		err := DB.C(videosCollection).Update(bson.M{
+			"site_id": siteID,
+			"_id":     video.ID,
+		}, bson.M{
+			"$set": bson.M{
+				"index": video.Index,
+			},
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

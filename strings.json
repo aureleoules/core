@@ -1,0 +1,32 @@
+{
+    "fr": {
+        "ERROR": "Erreur",
+        "NOT_FOUND": "Non trouvé",
+        "USERNAME_ALREADY_EXISTS": "Ce nom d'utilisateur est déjà utilisé.",
+        "USERNAME_TOO_SHORT": "Ce nom d'utilisateur est trop court.",
+        "USERNAME_TOO_LONG": "Ce nom d'utilisateur est trop long.",
+        "PASSWORD_TOO_SHORT": "Ce mot de passe est trop court.",
+        "PASSWORD_TOO_LONG": "Ce mot de passe est trop long.",
+        "NAME_TOO_LONG": "Le nom est trop long.",
+        "EMAIL_INVALID_FORMAT": "Ce format d'adresse email est invalide.",
+        "EMAIL_ALREADY_EXISTS": "Cette adresse email a déjà été atribuée.",
+        "WRONG_LAST_PASSWORD": "Le mot de passe est éronné",
+        "WRONG_CREDENTIALS": "L'identifiant ou le mot de passe est éronné.",
+        "UNAUTHORIZED": "Non autorisé"
+    },
+    "en": {
+        "ERROR": "Error",
+        "NOT_FOUND": "Not found",
+        "USERNAME_ALREADY_EXISTS": "This username is already taken.",
+        "USERNAME_TOO_SHORT": "This is username is too short.",
+        "USERNAME_TOO_LONG": "This username is too long.",
+        "PASSWORD_TOO_SHORT": "This password is too short.",
+        "PASSWORD_TOO_LONG": "This password is too long.",
+        "NAME_TOO_LONG": "Name is too long.",
+        "EMAIL_INVALID_FORMAT": "Invalid email format.",
+        "EMAIL_ALREADY_EXISTS": "This email has already been assigned.",
+        "WRONG_LAST_PASSWORD": "This is not the correct password",
+        "WRONG_CREDENTIALS": "Username/Email or password is wrong.",
+        "UNAUTHORIZED": "Unauthorized"
+    }
+}
