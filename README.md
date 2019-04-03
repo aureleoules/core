@@ -37,7 +37,7 @@ You can also pass all these variables as environment variables:
 * BUCKET_NAME  
 
 
-**Note**: If a `config.json` file is found, it will override environment variable.
+**Note**: If a `config.json` file is found, it will override environment variables.
 
 Then, you need to get your Google Service Account Key:
 * Go to this [page](https://console.cloud.google.com/apis/credentials/serviceaccountkey).
