@@ -5,11 +5,35 @@ import (
 	"io"
 	"log"
 	"mime/multipart"
+	"os"
 
 	"cloud.google.com/go/storage"
 	"github.com/backpulse/core/models"
+	"google.golang.org/api/option"
 	"gopkg.in/mgo.v2/bson"
 )
+
+// GetGoogleCloudClient : Return google cloud client
+func GetGoogleCloudClient(ctx context.Context) (*storage.Client, error) {
+
+	log.Println(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS"))
+	if os.Getenv("GOOGLE_APPLICATION_CREDENTIALS") == "" {
+		log.Println("Local file credentials")
+		os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "./google_credentials.json")
+		client, err := storage.NewClient(ctx)
+		return client, err
+	}
+
+	log.Print("environnement variables")
+	// cred := google.Credentials{
+	// 	JSON: []byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")),
+	// 	TokenSource
+	// }
+
+	client, err := storage.NewClient(ctx, option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS"))))
+	log.Println(err)
+	return client, err
+}
 
 // UpdateFilename : update filename of a file
 func UpdateFilename(fileID bson.ObjectId, filename string) error {
@@ -18,10 +42,7 @@ func UpdateFilename(fileID bson.ObjectId, filename string) error {
 
 	ctx := context.Background()
 
-	client, err := storage.NewClient(ctx)
-	if err != nil {
-		return err
-	}
+	client, err := GetGoogleCloudClient(ctx)
 
 	bucket := client.Bucket(bucketName)
 	object := bucket.Object(fileID.Hex())
@@ -41,11 +62,7 @@ func UploadFile(file multipart.File, fileName string) (bson.ObjectId, error) {
 	bucketName := config.BucketName
 
 	ctx := context.Background()
-
-	client, err := storage.NewClient(ctx)
-	if err != nil {
-		return "", err
-	}
+	client, err := GetGoogleCloudClient(ctx)
 
 	objectID := bson.NewObjectId()
 
@@ -80,11 +97,7 @@ func RemoveGoogleCloudPhotos(photos []models.Photo) error {
 
 	ctx := context.Background()
 
-	client, err := storage.NewClient(ctx)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
+	client, _ := GetGoogleCloudClient(ctx)
 
 	bucket := client.Bucket(bucketName)
 	for _, photo := range photos {

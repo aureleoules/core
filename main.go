@@ -15,10 +15,6 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	config := utils.GetConfig()
 
-	if os.Getenv("GOOGLE_APPLICATION_CRENDENTIALS") == "" {
-		os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "./google_credentials.json")
-	}
-
 	database.Connect(config.URI, config.Database)
 	utils.InitStripe()
 
