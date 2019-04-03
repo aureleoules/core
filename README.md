@@ -1,6 +1,10 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-netflix.svg)](https://forthebadge.com)
 
+[![Donate](https://img.shields.io/badge/Donate-Crypto-blue.svg)](https://commerce.coinbase.com/checkout/b4d64264-dda8-41d0-9f15-0843f969fa79)
+[![Donate](https://img.shields.io/badge/Donate-Patreon-orange.svg)](https://www.patreon.com/backpulse)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/aureleoules)
+
 ![Backpulse](https://files.backpulse.io/backpulse.png#cache2 "Backpulse.io")
 
 # Backpulse core
