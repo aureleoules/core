@@ -1,7 +1,9 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-netflix.svg)](https://forthebadge.com)
 
-![Backpulse](https://files.backpulse.io/backpulse.png#cache "Backpulse.io")
+<p align="center">
+  <img src="https://files.backpulse.io/backpulse.png" alt="Backpulse.io" height=150>
+</p>
 
 # Backpulse core
 Backpulse is an API Based / Headless CMS.  
