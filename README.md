@@ -62,4 +62,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 
 ## License 
-[MIT](https://github.com/backpulse/core/blob/master/LICENSE)
+[MIT](https://github.com/backpulse/core/blob/master/LICENSE) © [Aurèle Oulès](https://www.aureleoules.com)
