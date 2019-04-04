@@ -51,6 +51,7 @@ func GetSite(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// RemoveModule : remove module from site & all data associated
 func RemoveModule(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]

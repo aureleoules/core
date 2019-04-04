@@ -25,7 +25,7 @@ func DeleteGallery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	site, _ := database.GetSiteById(gallery.SiteID)
+	site, _ := database.GetSiteByID(gallery.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 
 	if !utils.IsAuthorized(site, user) {
@@ -51,7 +51,7 @@ func GetGallery(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
-	site, _ := database.GetSiteById(gallery.SiteID)
+	site, _ := database.GetSiteByID(gallery.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 
 	if !utils.IsAuthorized(site, user) {
@@ -184,7 +184,7 @@ func UpdateGallery(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
-	site, _ := database.GetSiteById(gallery.SiteID)
+	site, _ := database.GetSiteByID(gallery.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 
 	if !utils.IsAuthorized(site, user) {

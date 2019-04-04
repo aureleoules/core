@@ -17,7 +17,7 @@ func DeleteProject(w http.ResponseWriter, r *http.Request) {
 	shortID := vars["id"]
 
 	project, _ := database.GetProject(shortID)
-	site, _ := database.GetSiteById(project.SiteID)
+	site, _ := database.GetSiteByID(project.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 	if !utils.IsAuthorized(site, user) {
 		utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)
@@ -45,7 +45,7 @@ func GetProject(w http.ResponseWriter, r *http.Request) {
 
 	project, err := database.GetProject(shortID)
 
-	site, _ := database.GetSiteById(project.SiteID)
+	site, _ := database.GetSiteByID(project.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 
 	if !utils.IsAuthorized(site, user) {

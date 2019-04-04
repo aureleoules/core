@@ -13,6 +13,7 @@ func CreateGallery(gallery models.Gallery) error {
 	return err
 }
 
+// SetDefaultGallery : set a default gallery (useful for a homepage gallery for example)
 func SetDefaultGallery(site models.Site, gallery models.Gallery) error {
 	_, err := DB.C(galleriesCollection).UpdateAll(bson.M{
 		"site_id": site.ID,
@@ -32,6 +33,7 @@ func SetDefaultGallery(site models.Site, gallery models.Gallery) error {
 	return err
 }
 
+// UpdateGalleriesIndexes : Update galleries order
 func UpdateGalleriesIndexes(siteID bson.ObjectId, galleries []models.Gallery) error {
 	for _, g := range galleries {
 		err := DB.C(galleriesCollection).Update(bson.M{
@@ -72,6 +74,7 @@ func GetGallery(id string) (models.Gallery, error) {
 	return gallery, err
 }
 
+// SetGalleryPreview : set a gallery preview image
 func SetGalleryPreview(gallery models.Gallery, photo models.Photo) error {
 	err := DB.C(galleriesCollection).UpdateId(gallery.ID, bson.M{
 		"$set": bson.M{
@@ -81,7 +84,7 @@ func SetGalleryPreview(gallery models.Gallery, photo models.Photo) error {
 	return err
 }
 
-// GetHomeGallery return home gallery
+// GetDefaultGallery return default gallery
 func GetDefaultGallery(id bson.ObjectId) (models.Gallery, error) {
 	var gallery models.Gallery
 	err := DB.C(galleriesCollection).Find(bson.M{

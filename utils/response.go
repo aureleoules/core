@@ -56,5 +56,4 @@ func SendVerificationMail(email string, verification models.EmailVerification) e
 
 	err := d.DialAndSend(m)
 	return err
-	return nil
 }

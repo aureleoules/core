@@ -15,6 +15,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// UpdatePhotosIndexes : change order of photos
 func UpdatePhotosIndexes(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	siteName := vars["name"]
@@ -80,7 +81,7 @@ func DeletePhotos(w http.ResponseWriter, r *http.Request) {
 	var site models.Site
 	for _, photo := range photos {
 		if photo.SiteID != site.ID {
-			site, _ = database.GetSiteById(photo.SiteID)
+			site, _ = database.GetSiteByID(photo.SiteID)
 		}
 		if !utils.IsAuthorized(site, user) {
 			utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)

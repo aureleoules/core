@@ -33,6 +33,7 @@ func GetUserObjectID(r *http.Request) bson.ObjectId {
 	return bson.ObjectIdHex(id)
 }
 
+// IsAuthorized : Check if a user is authorized to edit site
 func IsAuthorized(site models.Site, user models.User) bool {
 	if site.OwnerID == user.ID {
 		return true

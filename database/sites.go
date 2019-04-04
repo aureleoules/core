@@ -9,16 +9,19 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// GetSiteTotalSize : return site size in MB
 func GetSiteTotalSize(site models.Site) float64 {
+	//TODO: Look for storage files size and not only photos
 	photos, _ := GetSitePhotos(site.ID)
 
-	var totalSize float64 = 0
+	var totalSize float64
 	for _, photo := range photos {
 		totalSize = totalSize + photo.Size
 	}
 	return totalSize
 }
 
+// TransferSite : Transfer the site to another user
 func TransferSite(site models.Site, lastOwner models.User, newOwner models.User) error {
 	collections := []string{contactCollection, aboutCollection, galleriesCollection, projectsCollection, photosCollection}
 	for _, c := range collections {
@@ -84,6 +87,7 @@ func GetSitesOfUser(user models.User) ([]models.Site, error) {
 	return sites, err
 }
 
+// GetOwnedSites : return only owned sites (and not the ones you might collaborate with)
 func GetOwnedSites(id bson.ObjectId) ([]models.Site, error) {
 	var sites []models.Site
 	err := DB.C(sitesCollection).Find(bson.M{
@@ -123,12 +127,14 @@ func GetSiteByName(name string) (models.Site, error) {
 	return site, err
 }
 
-func GetSiteById(id bson.ObjectId) (models.Site, error) {
+// GetSiteByID : return specific site by ObjectID
+func GetSiteByID(id bson.ObjectId) (models.Site, error) {
 	var site models.Site
 	err := DB.C(sitesCollection).FindId(id).One(&site)
 	return site, err
 }
 
+// AddModule : add module to site
 func AddModule(site models.Site, module string) error {
 	err := DB.C(sitesCollection).UpdateId(site.ID, bson.M{
 		"$push": bson.M{
@@ -138,6 +144,7 @@ func AddModule(site models.Site, module string) error {
 	return err
 }
 
+// RemoveModule : remove module from site
 func RemoveModule(site models.Site, module string) error {
 	err := DB.C(sitesCollection).UpdateId(site.ID, bson.M{
 		"$pull": bson.M{
@@ -148,6 +155,9 @@ func RemoveModule(site models.Site, module string) error {
 	if err != nil {
 		return err
 	}
+
+	//TODO: Remove data from other modules (videos, articles, music...)
+	// Or ask user to delete it first idk
 
 	if module == "galleries" {
 		galleries, _ := GetGalleries(site.ID)

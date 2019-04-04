@@ -14,6 +14,7 @@ type Album struct {
 	OwnerID bson.ObjectId `json:"owner_id" bson:"owner_id"`
 	SiteID  bson.ObjectId `json:"site_id" bson:"site_id"`
 
+	Cover       string  `json:"cover" bson:"cover"`
 	Title       string  `json:"title" bson:"title"`
 	Description string  `json:"description" bson:"description"`
 	Tracks      []Track `json:"tracks" bson:"tracks"`

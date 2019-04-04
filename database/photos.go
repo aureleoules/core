@@ -50,6 +50,7 @@ func GetPhotos(userID bson.ObjectId, ids []bson.ObjectId) ([]models.Photo, error
 	return photos, err
 }
 
+// GetSitePhotos : return photos from site
 func GetSitePhotos(id bson.ObjectId) ([]models.Photo, error) {
 	var photos []models.Photo
 	err := DB.C(photosCollection).Find(bson.M{
@@ -58,6 +59,7 @@ func GetSitePhotos(id bson.ObjectId) ([]models.Photo, error) {
 	return photos, err
 }
 
+// UpdatePhotosIndexes : update order of photos
 func UpdatePhotosIndexes(gallery models.Gallery, photos []models.Photo) error {
 	for _, photo := range photos {
 		err := DB.C(photosCollection).Update(bson.M{

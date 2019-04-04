@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// AddVideo : add video to db
 func AddVideo(video models.Video) error {
 	video.UpdatedAt = time.Now()
 	video.CreatedAt = time.Now()
@@ -14,12 +15,14 @@ func AddVideo(video models.Video) error {
 	return err
 }
 
+// GetVideo : Return specific video by ObjectID
 func GetVideo(videoID bson.ObjectId) (models.Video, error) {
 	var video models.Video
 	err := DB.C(videosCollection).FindId(videoID).One(&video)
 	return video, err
 }
 
+// GetGroupVideos : return array of video from a videogroup
 func GetGroupVideos(id bson.ObjectId) ([]models.Video, error) {
 	var videos []models.Video
 	err := DB.C(videosCollection).Find(bson.M{
@@ -28,6 +31,7 @@ func GetGroupVideos(id bson.ObjectId) ([]models.Video, error) {
 	return videos, err
 }
 
+// Updatevideo : update video informations (title, content, youtube_url)
 func UpdateVideo(id bson.ObjectId, video models.Video) error {
 	err := DB.C(videosCollection).UpdateId(id, bson.M{
 		"$set": bson.M{
@@ -39,11 +43,13 @@ func UpdateVideo(id bson.ObjectId, video models.Video) error {
 	return err
 }
 
+// RemoveVideo : remove video from db
 func RemoveVideo(id bson.ObjectId) error {
 	err := DB.C(videosCollection).RemoveId(id)
 	return err
 }
 
+// UpdateVideosIndexes : update order of videos
 func UpdateVideosIndexes(siteID bson.ObjectId, videos []models.Video) error {
 	for _, video := range videos {
 		err := DB.C(videosCollection).Update(bson.M{

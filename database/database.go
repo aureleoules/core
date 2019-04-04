@@ -21,6 +21,8 @@ const (
 	videoGroupsCollection        string = "videogroups"
 	videosCollection             string = "videos"
 	filesCollection              string = "files"
+	albumsCollection             string = "albums"
+	tracksCollection             string = "tracks"
 )
 
 //Connect : Connect to MongoDB

@@ -14,6 +14,9 @@ type Track struct {
 	OwnerID bson.ObjectId `json:"owner_id" bson:"owner_id"`
 	SiteID  bson.ObjectId `json:"site_id" bson:"site_id"`
 
+	AlbumID bson.ObjectId `json:"album_id" bson:"album_id"`
+
+	Image string `json:"image" bson:"image"`
 	Title string `json:"title" bson:"title"`
 	URL   string `json:"url" bson:"url"`
 

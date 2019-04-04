@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// VideoGroup struct
 type VideoGroup struct {
 	ID      bson.ObjectId `json:"id" bson:"_id"`
 	ShortID string        `json:"short_id" bson:"short_id"`

@@ -6,10 +6,11 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/backpulse/core/models"
-	"github.com/stripe/stripe-go"
+	stripe "github.com/stripe/stripe-go"
 	"gopkg.in/mgo.v2/bson"
 )
 
+// GetUserByEmail : return user by email
 func GetUserByEmail(email string) (models.User, error) {
 	var user models.User
 	err := DB.C(usersCollection).Find(bson.M{
@@ -18,6 +19,7 @@ func GetUserByEmail(email string) (models.User, error) {
 	return user, err
 }
 
+// RemoveUserSubscription : remove pro subscription from user
 func RemoveUserSubscription(user models.User) error {
 	err := DB.C(usersCollection).UpdateId(user.ID, bson.M{
 		"$set": bson.M{
@@ -28,6 +30,7 @@ func RemoveUserSubscription(user models.User) error {
 	return err
 }
 
+// SetUserPro : add pro subscription to user
 func SetUserPro(id bson.ObjectId, customer *stripe.Customer, subscription *stripe.Subscription) error {
 	err := DB.C(usersCollection).UpdateId(id, bson.M{
 		"$set": bson.M{
@@ -97,11 +100,13 @@ func VerifyUser(user models.User, verification models.EmailVerification) error {
 	return err
 }
 
+// RemoveUser : remove user from db
 func RemoveUser(id bson.ObjectId) error {
 	err := DB.C(usersCollection).RemoveId(id)
 	return err
 }
 
+// UpdateUserPassword : update user password, password is of course hashed
 func UpdateUserPassword(id bson.ObjectId, password string) error {
 	err := DB.C(usersCollection).UpdateId(id, bson.M{
 		"$set": bson.M{
