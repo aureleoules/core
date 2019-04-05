@@ -6,7 +6,7 @@ RUN apk add --no-cache git
 # Build project
 WORKDIR /go/src/github.com/backpulse/core
 COPY . .
-RUN dep ensure --vendor-only
+RUN dep ensure
 RUN go build -o main .
 
 FROM alpine:latest
