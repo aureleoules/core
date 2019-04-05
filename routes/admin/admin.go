@@ -3,9 +3,9 @@ package admin
 import (
 	"net/http"
 
+	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/backpulse/core/database"
 	"github.com/backpulse/core/utils"
-	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"github.com/urfave/negroni"
@@ -36,6 +36,8 @@ func HandleAdmin(r *mux.Router) *mux.Router {
 	handleVideos(r)
 	handleVideoGroups(r)
 	handleFiles(r)
+	handleAlbums(r)
+	handleTracks(r)
 
 	return r
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"regexp"
 
 	"github.com/backpulse/core/database"
 	"github.com/backpulse/core/models"
@@ -13,11 +12,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// AddVideo : add video to video group
-func AddVideo(w http.ResponseWriter, r *http.Request) {
+// AddTrack : add track to album
+func AddTrack(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
-	groupid := vars["groupid"]
+	albumid := vars["albumid"]
 
 	site, _ := database.GetSiteByName(name)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
@@ -27,51 +26,41 @@ func AddVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	group, err := database.GetVideoGroup(bson.ObjectIdHex(groupid))
+	album, err := database.GetAlbum(bson.ObjectIdHex(albumid))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
 
-	if group.SiteID != site.ID {
+	if album.SiteID != site.ID {
 		utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)
 		return
 	}
 
-	var video models.Video
-	/* Parse json to models.Project */
-	err = json.NewDecoder(r.Body).Decode(&video)
+	var track models.Track
+	/* Parse json to models.Track */
+	err = json.NewDecoder(r.Body).Decode(&track)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotAcceptable, "error", nil)
 		return
 	}
 
-	video.VideoGroupID = bson.ObjectIdHex(groupid)
+	track.AlbumID = bson.ObjectIdHex(albumid)
 
-	if len(video.YouTubeURL) < 1 {
-		utils.RespondWithJSON(w, http.StatusNotAcceptable, "url_required", nil)
-		return
-	}
-	match, _ := regexp.MatchString("^(http(s)?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+", video.YouTubeURL)
-	if !match {
-		utils.RespondWithJSON(w, http.StatusNotAcceptable, "url_required", nil)
+	if track.AlbumID == "" {
+		utils.RespondWithJSON(w, http.StatusNotAcceptable, "album_id_required", nil)
 		return
 	}
 
-	if video.VideoGroupID == "" {
-		utils.RespondWithJSON(w, http.StatusNotAcceptable, "video_group_required", nil)
-		return
-	}
+	track.SiteID = site.ID
+	track.OwnerID = site.OwnerID
 
-	video.SiteID = site.ID
-	video.OwnerID = site.OwnerID
+	track.ID = bson.NewObjectId()
 
-	video.ID = bson.NewObjectId()
+	tracks, _ := database.GetAlbumTracks(track.AlbumID)
+	track.Index = len(tracks)
 
-	videos, _ := database.GetGroupVideos(video.VideoGroupID)
-	video.Index = len(videos)
-
-	err = database.AddVideo(video)
+	err = database.AddTrack(track)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
@@ -81,8 +70,8 @@ func AddVideo(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// UpdateVideo : update informations of video (title, url)
-func UpdateVideo(w http.ResponseWriter, r *http.Request) {
+// UpdateTrack : update track informations
+func UpdateTrack(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 	id := vars["id"]
@@ -95,25 +84,15 @@ func UpdateVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var video models.Video
-	/* Parse json to models.Project */
-	err := json.NewDecoder(r.Body).Decode(&video)
+	var track models.Track
+	/* Parse json to models.Track */
+	err := json.NewDecoder(r.Body).Decode(&track)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotAcceptable, "error", nil)
 		return
 	}
 
-	if len(video.YouTubeURL) < 1 {
-		utils.RespondWithJSON(w, http.StatusNotAcceptable, "url_required", nil)
-		return
-	}
-	match, _ := regexp.MatchString("^(http(s)?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+", video.YouTubeURL)
-	if !match {
-		utils.RespondWithJSON(w, http.StatusNotAcceptable, "url_required", nil)
-		return
-	}
-
-	err = database.UpdateVideo(bson.ObjectIdHex(id), video)
+	err = database.UpdateTrack(bson.ObjectIdHex(id), track)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
@@ -123,8 +102,8 @@ func UpdateVideo(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// DeleteVideo : remove video from video group
-func DeleteVideo(w http.ResponseWriter, r *http.Request) {
+// DeleteTrack : remove track from album
+func DeleteTrack(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 	id := vars["id"]
@@ -137,13 +116,13 @@ func DeleteVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	video, err := database.GetVideo(bson.ObjectIdHex(id))
+	track, err := database.GetTrack(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
 
-	err = database.RemoveVideo(video.ID)
+	err = database.RemoveTrack(track.ID)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
@@ -153,8 +132,8 @@ func DeleteVideo(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// GetVideo : get specific video
-func GetVideo(w http.ResponseWriter, r *http.Request) {
+// GetTrack : get specific track
+func GetTrack(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 	id := vars["id"]
@@ -167,18 +146,18 @@ func GetVideo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	video, err := database.GetVideo(bson.ObjectIdHex(id))
+	track, err := database.GetTrack(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
 
-	utils.RespondWithJSON(w, http.StatusOK, "success", video)
+	utils.RespondWithJSON(w, http.StatusOK, "success", track)
 	return
 }
 
-// UpdateVideoIndexes : update order of videos in video group
-func UpdateVideosIndexes(w http.ResponseWriter, r *http.Request) {
+// UpdateTracksIndexes : update tracks order
+func UpdateTracksIndexes(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	siteName := vars["name"]
 
@@ -190,19 +169,18 @@ func UpdateVideosIndexes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var videos []models.Video
+	var tracks []models.Track
 	/* Parse json to models.Gallery */
-	err := json.NewDecoder(r.Body).Decode(&videos)
+	err := json.NewDecoder(r.Body).Decode(&tracks)
 	if err != nil {
 		log.Print(err)
 		utils.RespondWithJSON(w, http.StatusNotAcceptable, "error", nil)
 		return
 	}
 
-	err = database.UpdateVideosIndexes(site.ID, videos)
+	err = database.UpdateTracksIndexes(site.ID, tracks)
 	if err != nil {
 		log.Print(err)
-
 		utils.RespondWithJSON(w, http.StatusNotAcceptable, "error", nil)
 		return
 	}
