@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:alpine AS binaryBuilder
 
 ADD https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 /usr/bin/dep
 RUN chmod +x /usr/bin/dep
@@ -18,4 +18,9 @@ RUN dep ensure --vendor-only
 
 RUN go build -o main .
 
-CMD ["./main"]
+FROM alpine:latest
+WORKDIR /app/backpulse
+COPY --from=binaryBuilder /go/src/github.com/backpulse/core/main .
+
+EXPOSE 8000
+CMD ["/app/backpulse/main"]
