@@ -28,10 +28,10 @@ const (
 //Connect : Connect to MongoDB
 func Connect(server string, database string) {
 	session, err := mgo.Dial(server)
-	logrus.Infoln("Attempting to connect to " + database)
+
 	if err != nil {
-		logrus.Fatal(err)
+		logrus.Fatal("Database: ERROR", err)
 	}
 	DB = session.DB(database)
-	logrus.Info("Successfully connected to " + database)
+	logrus.Infoln("Database: OK")
 }

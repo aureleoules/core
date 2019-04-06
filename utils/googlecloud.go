@@ -9,16 +9,30 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/backpulse/core/models"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/api/option"
 	"gopkg.in/mgo.v2/bson"
 )
+
+var ctx context.Context
+var gClient *storage.Client
+
+func InitGoogleCloud() {
+	ctx = context.Background()
+	c, err := GetGoogleCloudClient(ctx)
+	if err != nil {
+		logrus.Infoln("Google Cloud: ERROR", err)
+	}
+	gClient = c
+	logrus.Infoln("Google Cloud: OK")
+	return
+}
 
 // GetGoogleCloudClient : Return google cloud client
 func GetGoogleCloudClient(ctx context.Context) (*storage.Client, error) {
 
 	// Use ./google_credentials.json by default
 	if os.Getenv("GOOGLE_APPLICATION_CREDENTIALS") == "" {
-		log.Println("Local file credentials")
 		os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "./google_credentials.json")
 		client, err := storage.NewClient(ctx)
 		return client, err
@@ -36,13 +50,11 @@ func UpdateFilename(fileID bson.ObjectId, filename string) error {
 
 	ctx := context.Background()
 
-	client, err := GetGoogleCloudClient(ctx)
-
-	bucket := client.Bucket(bucketName)
+	bucket := gClient.Bucket(bucketName)
 	object := bucket.Object(fileID.Hex())
 
 	log.Print(fileID.Hex())
-	_, err = object.Update(ctx, storage.ObjectAttrsToUpdate{
+	_, err := object.Update(ctx, storage.ObjectAttrsToUpdate{
 		ContentDisposition: "inline; filename=\"" + filename + "\"",
 	})
 	log.Print(err)
@@ -56,23 +68,24 @@ func UploadFile(file multipart.File, fileName string) (bson.ObjectId, error) {
 	bucketName := config.BucketName
 
 	ctx := context.Background()
-	client, err := GetGoogleCloudClient(ctx)
 
 	objectID := bson.NewObjectId()
 
-	bucket := client.Bucket(bucketName)
+	bucket := gClient.Bucket(bucketName)
 	object := bucket.Object(objectID.Hex())
 
 	object.ACL().Set(ctx, storage.AllUsers, storage.RoleReader)
 
 	wc := object.NewWriter(ctx)
-	_, err = io.Copy(wc, file)
+	_, err := io.Copy(wc, file)
 	if err != nil {
+		log.Println(err)
 		return "", err
 	}
 
 	err = wc.Close()
 	if err != nil {
+		log.Println(err)
 		return "", err
 	}
 	update, err := object.Update(ctx, storage.ObjectAttrsToUpdate{
@@ -91,9 +104,7 @@ func RemoveGoogleCloudPhotos(photos []models.Photo) error {
 
 	ctx := context.Background()
 
-	client, _ := GetGoogleCloudClient(ctx)
-
-	bucket := client.Bucket(bucketName)
+	bucket := gClient.Bucket(bucketName)
 	for _, photo := range photos {
 		log.Println(photo.ID.Hex())
 		object := bucket.Object(photo.ID.Hex())

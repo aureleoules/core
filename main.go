@@ -16,6 +16,7 @@ func main() {
 	config := utils.GetConfig()
 
 	database.Connect(config.URI, config.Database)
+	utils.InitGoogleCloud()
 	utils.InitStripe()
 
 	r := routes.NewRouter()
