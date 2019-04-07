@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if test -f ./setup; then
+    source ./setup
+fi
+
+export USER=backpulse
+exec gosu $USER /app/backpulse/backpulse

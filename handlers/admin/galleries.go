@@ -245,7 +245,7 @@ func CreateGallery(w http.ResponseWriter, r *http.Request) {
 		ShortID:   shortID,
 		Index:     len(galleries),
 		Titles: []models.Translation{
-			models.Translation{
+			{
 				Content:      galleryName,
 				LanguageCode: "en",
 				LanguageName: "English",

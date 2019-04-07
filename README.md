@@ -17,6 +17,29 @@ With a correctly configured Go toolchain:
 go get github.com/backpulse/core
 ```
 
+## Build&Run from source
+With a correctly configured(go version >=go1.11) Go toolchain: 
+```bash
+git clone https://github.com/backpulse/core
+cd core
+make build
+./backpulse
+``` 
+
+## Docker Build&Run
+```bash
+docker build -t <your-backpulse-tag> .
+docker run -d --links <mongodb-container>:mongodb <your-backpulse-tag>
+```
+or docker run in custom environment
+```bash
+docker run -d \
+           --links <mongodb-container>:mongodb \
+           --env MONGODB_URI=mongodb://mongodb:27017 \
+           --env DATABASE=backpulse \
+           <your-backpulse-tag>
+```
+
 ## Usage
 First, you need to create a config.json using the `config.json.template` file.
 * **URI** : MongoDB server address (_mongodb://..._)
