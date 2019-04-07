@@ -6,556 +6,556 @@ type Language struct {
 }
 
 var Languages []Language = []Language{
-	Language{
+	{
 		Name: "Afar",
 		Code: "aa",
-	}, Language{
+	}, {
 		Name: "Abkhazian",
 		Code: "ab",
-	}, Language{
+	}, {
 		Name: "Avestan",
 		Code: "ae",
-	}, Language{
+	}, {
 		Name: "Afrikaans",
 		Code: "af",
-	}, Language{
+	}, {
 		Name: "Akan",
 		Code: "ak",
-	}, Language{
+	}, {
 		Name: "Amharic",
 		Code: "am",
-	}, Language{
+	}, {
 		Name: "Aragonese",
 		Code: "an",
-	}, Language{
+	}, {
 		Name: "Arabic",
 		Code: "ar",
-	}, Language{
+	}, {
 		Name: "Assamese",
 		Code: "as",
-	}, Language{
+	}, {
 		Name: "Avaric",
 		Code: "av",
-	}, Language{
+	}, {
 		Name: "Aymara",
 		Code: "ay",
-	}, Language{
+	}, {
 		Name: "Azerbaijani",
 		Code: "az",
-	}, Language{
+	}, {
 		Name: "Bashkir",
 		Code: "ba",
-	}, Language{
+	}, {
 		Name: "Belarusian",
 		Code: "be",
-	}, Language{
+	}, {
 		Name: "Bulgarian",
 		Code: "bg",
-	}, Language{
+	}, {
 		Name: "Bihari",
 		Code: "bh",
-	}, Language{
+	}, {
 		Name: "Bislama",
 		Code: "bi",
-	}, Language{
+	}, {
 		Name: "Bambara",
 		Code: "bm",
-	}, Language{
+	}, {
 		Name: "Bengali",
 		Code: "bn",
-	}, Language{
+	}, {
 		Name: "Tibetan",
 		Code: "bo",
-	}, Language{
+	}, {
 		Name: "Breton",
 		Code: "br",
-	}, Language{
+	}, {
 		Name: "Bosnian",
 		Code: "bs",
-	}, Language{
+	}, {
 		Name: "Catalan",
 		Code: "ca",
-	}, Language{
+	}, {
 		Name: "Chechen",
 		Code: "ce",
-	}, Language{
+	}, {
 		Name: "Chamorro",
 		Code: "ch",
-	}, Language{
+	}, {
 		Name: "Corsican",
 		Code: "co",
-	}, Language{
+	}, {
 		Name: "Cree",
 		Code: "cr",
-	}, Language{
+	}, {
 		Name: "Czech",
 		Code: "cs",
-	}, Language{
+	}, {
 		Name: "Church Slavic",
 		Code: "cu",
-	}, Language{
+	}, {
 		Name: "Chuvash",
 		Code: "cv",
-	}, Language{
+	}, {
 		Name: "Welsh",
 		Code: "cy",
-	}, Language{
+	}, {
 		Name: "Danish",
 		Code: "da",
-	}, Language{
+	}, {
 		Name: "German",
 		Code: "de",
-	}, Language{
+	}, {
 		Name: "Divehi",
 		Code: "dv",
-	}, Language{
+	}, {
 		Name: "Dzongkha",
 		Code: "dz",
-	}, Language{
+	}, {
 		Name: "Ewe",
 		Code: "ee",
-	}, Language{
+	}, {
 		Name: "Greek",
 		Code: "el",
-	}, Language{
+	}, {
 		Name: "English",
 		Code: "en",
-	}, Language{
+	}, {
 		Name: "Esperanto",
 		Code: "eo",
-	}, Language{
+	}, {
 		Name: "Spanish",
 		Code: "es",
-	}, Language{
+	}, {
 		Name: "Estonian",
 		Code: "et",
-	}, Language{
+	}, {
 		Name: "Basque",
 		Code: "eu",
-	}, Language{
+	}, {
 		Name: "Persian",
 		Code: "fa",
-	}, Language{
+	}, {
 		Name: "Fulah",
 		Code: "ff",
-	}, Language{
+	}, {
 		Name: "Finnish",
 		Code: "fi",
-	}, Language{
+	}, {
 		Name: "Fijian",
 		Code: "fj",
-	}, Language{
+	}, {
 		Name: "Faroese",
 		Code: "fo",
-	}, Language{
+	}, {
 		Name: "French",
 		Code: "fr",
-	}, Language{
+	}, {
 		Name: "Western Frisian",
 		Code: "fy",
-	}, Language{
+	}, {
 		Name: "Irish",
 		Code: "ga",
-	}, Language{
+	}, {
 		Name: "Gaelic",
 		Code: "gd",
-	}, Language{
+	}, {
 		Name: "Galician",
 		Code: "gl",
-	}, Language{
+	}, {
 		Name: "Guarani",
 		Code: "gn",
-	}, Language{
+	}, {
 		Name: "Gujarati",
 		Code: "gu",
-	}, Language{
+	}, {
 		Name: "Manx",
 		Code: "gv",
-	}, Language{
+	}, {
 		Name: "Hausa",
 		Code: "ha",
-	}, Language{
+	}, {
 		Name: "Hebrew",
 		Code: "he",
-	}, Language{
+	}, {
 		Name: "Hindi",
 		Code: "hi",
-	}, Language{
+	}, {
 		Name: "Hiri Motu",
 		Code: "ho",
-	}, Language{
+	}, {
 		Name: "Croatian",
 		Code: "hr",
-	}, Language{
+	}, {
 		Name: "Haitian",
 		Code: "ht",
-	}, Language{
+	}, {
 		Name: "Hungarian",
 		Code: "hu",
-	}, Language{
+	}, {
 		Name: "Armenian",
 		Code: "hy",
-	}, Language{
+	}, {
 		Name: "Herero",
 		Code: "hz",
-	}, Language{
+	}, {
 		Name: "Interlingua",
 		Code: "ia",
-	}, Language{
+	}, {
 		Name: "Indonesian",
 		Code: "id",
-	}, Language{
+	}, {
 		Name: "Interlingue",
 		Code: "ie",
-	}, Language{
+	}, {
 		Name: "Igbo",
 		Code: "ig",
-	}, Language{
+	}, {
 		Name: "Sichuan Yi",
 		Code: "ii",
-	}, Language{
+	}, {
 		Name: "Inupiaq",
 		Code: "ik",
-	}, Language{
+	}, {
 		Name: "Ido",
 		Code: "io",
-	}, Language{
+	}, {
 		Name: "Icelandic",
 		Code: "is",
-	}, Language{
+	}, {
 		Name: "Italian",
 		Code: "it",
-	}, Language{
+	}, {
 		Name: "Inuktitut",
 		Code: "iu",
-	}, Language{
+	}, {
 		Name: "Japanese",
 		Code: "ja",
-	}, Language{
+	}, {
 		Name: "Javanese",
 		Code: "jv",
-	}, Language{
+	}, {
 		Name: "Georgian",
 		Code: "ka",
-	}, Language{
+	}, {
 		Name: "Kongo",
 		Code: "kg",
-	}, Language{
+	}, {
 		Name: "Kikuyu",
 		Code: "ki",
-	}, Language{
+	}, {
 		Name: "Kuanyama",
 		Code: "kj",
-	}, Language{
+	}, {
 		Name: "Kazakh",
 		Code: "kk",
-	}, Language{
+	}, {
 		Name: "Kalaallisut",
 		Code: "kl",
-	}, Language{
+	}, {
 		Name: "Central Khmer",
 		Code: "km",
-	}, Language{
+	}, {
 		Name: "Kannada",
 		Code: "kn",
-	}, Language{
+	}, {
 		Name: "Korean",
 		Code: "ko",
-	}, Language{
+	}, {
 		Name: "Kanuri",
 		Code: "kr",
-	}, Language{
+	}, {
 		Name: "Kashmiri",
 		Code: "ks",
-	}, Language{
+	}, {
 		Name: "Kurdish",
 		Code: "ku",
-	}, Language{
+	}, {
 		Name: "Komi",
 		Code: "kv",
-	}, Language{
+	}, {
 		Name: "Cornish",
 		Code: "kw",
-	}, Language{
+	}, {
 		Name: "Kirghiz",
 		Code: "ky",
-	}, Language{
+	}, {
 		Name: "Latin",
 		Code: "la",
-	}, Language{
+	}, {
 		Name: "Luxembourgish",
 		Code: "lb",
-	}, Language{
+	}, {
 		Name: "Ganda",
 		Code: "lg",
-	}, Language{
+	}, {
 		Name: "Limburgan",
 		Code: "li",
-	}, Language{
+	}, {
 		Name: "Lingala",
 		Code: "ln",
-	}, Language{
+	}, {
 		Name: "Lao",
 		Code: "lo",
-	}, Language{
+	}, {
 		Name: "Lithuanian",
 		Code: "lt",
-	}, Language{
+	}, {
 		Name: "Luba-Katanga",
 		Code: "lu",
-	}, Language{
+	}, {
 		Name: "Latvian",
 		Code: "lv",
-	}, Language{
+	}, {
 		Name: "Malagasy",
 		Code: "mg",
-	}, Language{
+	}, {
 		Name: "Marshallese",
 		Code: "mh",
-	}, Language{
+	}, {
 		Name: "Maori",
 		Code: "mi",
-	}, Language{
+	}, {
 		Name: "Macedonian",
 		Code: "mk",
-	}, Language{
+	}, {
 		Name: "Malayalam",
 		Code: "ml",
-	}, Language{
+	}, {
 		Name: "Mongolian",
 		Code: "mn",
-	}, Language{
+	}, {
 		Name: "Marathi",
 		Code: "mr",
-	}, Language{
+	}, {
 		Name: "Malay",
 		Code: "ms",
-	}, Language{
+	}, {
 		Name: "Maltese",
 		Code: "mt",
-	}, Language{
+	}, {
 		Name: "Burmese",
 		Code: "my",
-	}, Language{
+	}, {
 		Name: "Nauru",
 		Code: "na",
-	}, Language{
+	}, {
 		Name: "Bokmål",
 		Code: "nb",
-	}, Language{
+	}, {
 		Name: "Ndebele",
 		Code: "nd",
-	}, Language{
+	}, {
 		Name: "Nepali",
 		Code: "ne",
-	}, Language{
+	}, {
 		Name: "Ndonga",
 		Code: "ng",
-	}, Language{
+	}, {
 		Name: "Dutch",
 		Code: "nl",
-	}, Language{
+	}, {
 		Name: "Norwegian Nynorsk",
 		Code: "nn",
-	}, Language{
+	}, {
 		Name: "Norwegian",
 		Code: "no",
-	}, Language{
+	}, {
 		Name: "Ndebele",
 		Code: "nr",
-	}, Language{
+	}, {
 		Name: "Navajo",
 		Code: "nv",
-	}, Language{
+	}, {
 		Name: "Chichewa",
 		Code: "ny",
-	}, Language{
+	}, {
 		Name: "Occitan",
 		Code: "oc",
-	}, Language{
+	}, {
 		Name: "Ojibwa",
 		Code: "oj",
-	}, Language{
+	}, {
 		Name: "Oromo",
 		Code: "om",
-	}, Language{
+	}, {
 		Name: "Oriya",
 		Code: "or",
-	}, Language{
+	}, {
 		Name: "Ossetian",
 		Code: "os",
-	}, Language{
+	}, {
 		Name: "Panjabi",
 		Code: "pa",
-	}, Language{
+	}, {
 		Name: "Pali",
 		Code: "pi",
-	}, Language{
+	}, {
 		Name: "Polish",
 		Code: "pl",
-	}, Language{
+	}, {
 		Name: "Pushto",
 		Code: "ps",
-	}, Language{
+	}, {
 		Name: "Portuguese",
 		Code: "pt",
-	}, Language{
+	}, {
 		Name: "Quechua",
 		Code: "qu",
-	}, Language{
+	}, {
 		Name: "Romansh",
 		Code: "rm",
-	}, Language{
+	}, {
 		Name: "Rundi",
 		Code: "rn",
-	}, Language{
+	}, {
 		Name: "Romanian",
 		Code: "ro",
-	}, Language{
+	}, {
 		Name: "Russian",
 		Code: "ru",
-	}, Language{
+	}, {
 		Name: "Kinyarwanda",
 		Code: "rw",
-	}, Language{
+	}, {
 		Name: "Sanskrit",
 		Code: "sa",
-	}, Language{
+	}, {
 		Name: "Sardinian",
 		Code: "sc",
-	}, Language{
+	}, {
 		Name: "Sindhi",
 		Code: "sd",
-	}, Language{
+	}, {
 		Name: "Northern Sami",
 		Code: "se",
-	}, Language{
+	}, {
 		Name: "Sango",
 		Code: "sg",
-	}, Language{
+	}, {
 		Name: "Sinhala",
 		Code: "si",
-	}, Language{
+	}, {
 		Name: "Slovak",
 		Code: "sk",
-	}, Language{
+	}, {
 		Name: "Slovenian",
 		Code: "sl",
-	}, Language{
+	}, {
 		Name: "Samoan",
 		Code: "sm",
-	}, Language{
+	}, {
 		Name: "Shona",
 		Code: "sn",
-	}, Language{
+	}, {
 		Name: "Somali",
 		Code: "so",
-	}, Language{
+	}, {
 		Name: "Albanian",
 		Code: "sq",
-	}, Language{
+	}, {
 		Name: "Serbian",
 		Code: "sr",
-	}, Language{
+	}, {
 		Name: "Swati",
 		Code: "ss",
-	}, Language{
+	}, {
 		Name: "Sotho",
 		Code: "st",
-	}, Language{
+	}, {
 		Name: "Sundanese",
 		Code: "su",
-	}, Language{
+	}, {
 		Name: "Swedish",
 		Code: "sv",
-	}, Language{
+	}, {
 		Name: "Swahili",
 		Code: "sw",
-	}, Language{
+	}, {
 		Name: "Tamil",
 		Code: "ta",
-	}, Language{
+	}, {
 		Name: "Telugu",
 		Code: "te",
-	}, Language{
+	}, {
 		Name: "Tajik",
 		Code: "tg",
-	}, Language{
+	}, {
 		Name: "Thai",
 		Code: "th",
-	}, Language{
+	}, {
 		Name: "Tigrinya",
 		Code: "ti",
-	}, Language{
+	}, {
 		Name: "Turkmen",
 		Code: "tk",
-	}, Language{
+	}, {
 		Name: "Tagalog",
 		Code: "tl",
-	}, Language{
+	}, {
 		Name: "Tswana",
 		Code: "tn",
-	}, Language{
+	}, {
 		Name: "Tonga",
 		Code: "to",
-	}, Language{
+	}, {
 		Name: "Turkish",
 		Code: "tr",
-	}, Language{
+	}, {
 		Name: "Tsonga",
 		Code: "ts",
-	}, Language{
+	}, {
 		Name: "Tatar",
 		Code: "tt",
-	}, Language{
+	}, {
 		Name: "Twi",
 		Code: "tw",
-	}, Language{
+	}, {
 		Name: "Tahitian",
 		Code: "ty",
-	}, Language{
+	}, {
 		Name: "Uighur",
 		Code: "ug",
-	}, Language{
+	}, {
 		Name: "Ukrainian",
 		Code: "uk",
-	}, Language{
+	}, {
 		Name: "Urdu",
 		Code: "ur",
-	}, Language{
+	}, {
 		Name: "Uzbek",
 		Code: "uz",
-	}, Language{
+	}, {
 		Name: "Venda",
 		Code: "ve",
-	}, Language{
+	}, {
 		Name: "Vietnamese",
 		Code: "vi",
-	}, Language{
+	}, {
 		Name: "Volapük",
 		Code: "vo",
-	}, Language{
+	}, {
 		Name: "Walloon",
 		Code: "wa",
-	}, Language{
+	}, {
 		Name: "Wolof",
 		Code: "wo",
-	}, Language{
+	}, {
 		Name: "Xhosa",
 		Code: "xh",
-	}, Language{
+	}, {
 		Name: "Yiddish",
 		Code: "yi",
-	}, Language{
+	}, {
 		Name: "Yoruba",
 		Code: "yo",
-	}, Language{
+	}, {
 		Name: "Zhuang",
 		Code: "za",
-	}, Language{
+	}, {
 		Name: "Chinese",
 		Code: "zh",
-	}, Language{
+	}, {
 		Name: "Zulu",
 		Code: "zu",
 	},

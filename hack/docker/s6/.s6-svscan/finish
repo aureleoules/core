@@ -1,0 +1,3 @@
+#!/bin/sh
+
+# Cleanup some services and s6 event folder

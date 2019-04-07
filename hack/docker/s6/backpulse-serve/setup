@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd /app/backpulse
+
+# Link volumed data with app data
+ln -sfn /data/log log

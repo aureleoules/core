@@ -55,10 +55,10 @@ func GetSitesOfUser(user models.User) ([]models.Site, error) {
 	var sites []models.Site
 	err := DB.C(sitesCollection).Find(bson.M{
 		"$or": []bson.M{
-			bson.M{
+			{
 				"owner_id": user.ID,
 			},
-			bson.M{
+			{
 				"collaborators": models.Collaborator{
 					Email: user.Email,
 					Role:  "collaborator",

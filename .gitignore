@@ -1,4 +1,5 @@
 vendor/
+.idea
 *.exe
 config.json
 backpulse.json

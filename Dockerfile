@@ -1,18 +1,39 @@
 FROM golang:alpine AS binaryBuilder
 # Install build deps
-ADD https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 /usr/bin/dep
-RUN chmod +x /usr/bin/dep
-RUN apk add --no-cache git
+RUN apk --no-cache --no-progress add --virtual build-deps build-base git
+
 # Build project
 WORKDIR /go/src/github.com/backpulse/core
 COPY . .
-RUN dep ensure
-RUN go build -o main .
+RUN make build
 
 FROM alpine:latest
+# Install system utils & runtime dependencies
+ADD https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64 /usr/sbin/gosu
+RUN chmod +x /usr/sbin/gosu \
+  && echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories \
+  && apk --no-cache --no-progress add bash s6 shadow
+
+# Configure LibC Name Service
+COPY hack/docker/nsswitch.conf /etc/nsswitch.conf
+
 # Copy target app from binaryBuilder stage
 WORKDIR /app/backpulse
-COPY --from=binaryBuilder /go/src/github.com/backpulse/core/main .
+COPY hack/docker docker
+COPY --from=binaryBuilder /go/src/github.com/backpulse/core/backpulse .
+
+# Finalize s6 configure
+RUN ./docker/finalize.sh
+
 # Configure Docker Container
+ENV MONGODB_URI mongodb://mongodb:27017
+ENV DATABASE backpulse
+
+# Configure Docker Container
+VOLUME ["/data"]
+
+# backend data interface agent.
 EXPOSE 8000
-CMD ["/app/backpulse/main"]
+
+ENTRYPOINT ["/app/backpulse/docker/start.sh"]
+CMD ["/bin/s6-svscan", "/app/backpulse/docker/s6/"]
