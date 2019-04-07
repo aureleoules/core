@@ -20,14 +20,11 @@ COPY hack/docker/nsswitch.conf /etc/nsswitch.conf
 # Copy target app from binaryBuilder stage
 WORKDIR /app/backpulse
 COPY hack/docker docker
+COPY .env ./
 COPY --from=binaryBuilder /go/src/github.com/backpulse/core/backpulse .
 
 # Finalize s6 configure
 RUN ./docker/finalize.sh
-
-# Configure Docker Container
-ENV MONGODB_URI mongodb://mongodb:27017
-ENV DATABASE backpulse
 
 # Configure Docker Container
 VOLUME ["/data"]
