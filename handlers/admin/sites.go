@@ -24,6 +24,71 @@ func GetSites(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// GetOverview : return site overview informations
+func GetOverview(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+
+	site, _ := database.GetSiteByName(name)
+	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
+
+	if !utils.IsAuthorized(site, user) {
+		utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)
+		return
+	}
+
+	for _, c := range site.Collaborators {
+		if user.Email == c.Email {
+			site.Role = "collaborator"
+		}
+	}
+	if site.Role == "" {
+		site.Role = "owner"
+	}
+
+	files, _ := database.GetSiteFiles(site.ID)
+	galleries, _ := database.GetGalleries(site.ID)
+	albums, _ := database.GetAlbums(site.ID)
+	videogroups, _ := database.GetVideoGroups(site.ID)
+	articles, _ := database.GetVideoGroups(site.ID)
+	projects, _ := database.GetProjects(site.ID)
+
+	type overview struct {
+		Files       int `json:"files"`
+		Galleries   int `json:"galleries"`
+		Albums      int `json:"albums"`
+		VideoGroups int `json:"video_groups"`
+		Articles    int `json:"articles"`
+		Projects    int `json:"projects"`
+
+		TotalSize     float64               `json:"total_size"`
+		Name          string                `json:"name"`
+		DisplayName   string                `json:"display_name"`
+		Collaborators []models.Collaborator `json:"collaborators"`
+		Modules       []constants.Module    `json:"modules"`
+	}
+
+	data := overview{
+		Files:         len(files),
+		Galleries:     len(galleries),
+		Albums:        len(albums),
+		VideoGroups:   len(videogroups),
+		Articles:      len(articles),
+		Projects:      len(projects),
+		DisplayName:   site.DisplayName,
+		Name:          site.Name,
+		Modules:       site.Modules,
+		Collaborators: site.Collaborators,
+
+		TotalSize: database.GetSiteTotalSize(site.ID),
+	}
+
+	log.Println(database.GetSiteTotalSize(site.ID))
+
+	utils.RespondWithJSON(w, http.StatusOK, "success", data)
+	return
+}
+
 // GetSite : return specific site
 func GetSite(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -46,7 +111,7 @@ func GetSite(w http.ResponseWriter, r *http.Request) {
 		site.Role = "owner"
 	}
 
-	site.TotalSize = database.GetSiteTotalSize(site)
+	site.TotalSize = database.GetSiteTotalSize(site.ID)
 	utils.RespondWithJSON(w, http.StatusOK, "success", site)
 	return
 }
@@ -284,7 +349,7 @@ func TransferSite(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	isPremium := utils.HasPremiumFeatures(site, database.GetSiteTotalSize(site))
+	isPremium := utils.HasPremiumFeatures(site, database.GetSiteTotalSize(site.ID))
 
 	nextOwner, err := database.GetUserByEmail(email)
 	if err != nil {

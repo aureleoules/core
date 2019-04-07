@@ -8,6 +8,7 @@ import (
 func handleSites(r *mux.Router) {
 	/* Sites */
 	r.Handle("/sites", ProtectedRoute(adminHandlers.GetSites)).Methods("GET")
+	r.Handle("/sites/{name}/overview", ProtectedRoute(adminHandlers.GetOverview)).Methods("GET")
 	r.Handle("/sites/{name}", ProtectedRoute(adminHandlers.GetSite)).Methods("GET")
 	r.Handle("/sites/{name}", ProtectedRoute(adminHandlers.UpdateSite)).Methods("PUT")
 	r.Handle("/sites/{name}", ProtectedRoute(adminHandlers.DeleteSite)).Methods("DELETE")

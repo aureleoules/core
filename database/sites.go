@@ -10,14 +10,19 @@ import (
 )
 
 // GetSiteTotalSize : return site size in MB
-func GetSiteTotalSize(site models.Site) float64 {
-	//TODO: Look for storage files size and not only photos
-	photos, _ := GetSitePhotos(site.ID)
+func GetSiteTotalSize(siteID bson.ObjectId) float64 {
+	photos, _ := GetSitePhotos(siteID)
 
 	var totalSize float64
 	for _, photo := range photos {
 		totalSize = totalSize + photo.Size
 	}
+
+	files, _ := GetSiteFiles(siteID)
+	for _, file := range files {
+		totalSize = totalSize + file.Size
+	}
+
 	return totalSize
 }
 
