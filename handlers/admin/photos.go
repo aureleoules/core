@@ -29,7 +29,7 @@ func UpdatePhotosIndexes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gallery, err := database.GetGallery(galleryID)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(galleryID))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
@@ -139,8 +139,9 @@ func UploadPhoto(w http.ResponseWriter, r *http.Request) {
 
 	if r.FormValue("is_gallery") == "true" {
 		// This is a gallery photos
+		galleryID := r.FormValue("gallery_id")
 		photo.IsGallery = true
-		g, err := database.GetGallery(r.FormValue("gallery_id"))
+		g, err := database.GetGallery(bson.ObjectIdHex(galleryID))
 		if err != nil {
 			utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 			return

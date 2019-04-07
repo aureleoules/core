@@ -52,11 +52,32 @@ func UpdateGalleriesIndexes(siteID bson.ObjectId, galleries []models.Gallery) er
 }
 
 // GetGallery return specific gallery
-func GetGallery(id string) (models.Gallery, error) {
+func GetGalleryByShortID(shortID string) (models.Gallery, error) {
 	var gallery models.Gallery
 	err := DB.C(galleriesCollection).Find(bson.M{
-		"short_id": id,
+		"short_id": shortID,
 	}).One(&gallery)
+
+	if err != nil {
+		return models.Gallery{}, err
+	}
+
+	photos, err := GetGalleryPhotos(gallery.ID)
+	if err != nil {
+		return models.Gallery{}, err
+	}
+
+	gallery.Photos = photos
+	gallery.PreviewPhoto, _ = GetPhotoByID(gallery.PreviewPhotoID)
+	gallery.Title = getDefaultGalleryTitle(gallery)
+
+	return gallery, err
+}
+
+// GetGallery return specific gallery
+func GetGallery(id bson.ObjectId) (models.Gallery, error) {
+	var gallery models.Gallery
+	err := DB.C(galleriesCollection).FindId(id).One(&gallery)
 
 	if err != nil {
 		return models.Gallery{}, err

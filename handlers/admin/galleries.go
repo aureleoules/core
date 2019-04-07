@@ -19,7 +19,7 @@ func DeleteGallery(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	gallery, err := database.GetGallery(id)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
@@ -46,7 +46,7 @@ func GetGallery(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	gallery, err := database.GetGallery(id)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
@@ -101,7 +101,7 @@ func SetGalleryPreview(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gallery, err := database.GetGallery(galleryID)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(galleryID))
 	if err != nil {
 		log.Print(err)
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
@@ -153,7 +153,7 @@ func SetDefaultGallery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gallery, err := database.GetGallery(galleryID)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(galleryID))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
@@ -179,7 +179,7 @@ func UpdateGallery(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	gallery, err := database.GetGallery(id)
+	gallery, err := database.GetGallery(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return

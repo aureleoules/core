@@ -11,8 +11,8 @@ import (
 // GetGallery : return specific gallery
 func GetGallery(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
-	gallery, err := database.GetGallery(id)
+	id := vars["short_id"]
+	gallery, err := database.GetGalleryByShortID(id)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return

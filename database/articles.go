@@ -25,11 +25,18 @@ func RemoveArticle(id bson.ObjectId) error {
 }
 
 // GetArticle : return single article based by short_id
-func GetArticle(shortID string) (models.Article, error) {
+func GetArticleByShortID(shortID string) (models.Article, error) {
 	var article models.Article
 	err := DB.C(articlesCollection).Find(bson.M{
 		"short_id": shortID,
 	}).One(&article)
+	return article, err
+}
+
+// GetArticle : return single article based by short_id
+func GetArticle(id bson.ObjectId) (models.Article, error) {
+	var article models.Article
+	err := DB.C(articlesCollection).FindId(id).One(&article)
 	return article, err
 }
 

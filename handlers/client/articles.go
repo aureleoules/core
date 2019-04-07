@@ -11,8 +11,8 @@ import (
 // GetArticle : return specific article
 func GetArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
-	article, err := database.GetArticle(id)
+	id := vars["short_id"]
+	article, err := database.GetArticleByShortID(id)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return

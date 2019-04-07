@@ -9,6 +9,7 @@ import (
 	"github.com/backpulse/core/models"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 )
 
 // GetArticles : return array of article of site
@@ -47,7 +48,7 @@ func GetArticle(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)
 		return
 	}
-	article, err := database.GetArticle(id)
+	article, err := database.GetArticle(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
@@ -100,7 +101,7 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if article.ID != "" {
-		a, _ := database.GetArticle(article.ShortID)
+		a, _ := database.GetArticle(article.ID)
 		if a.SiteID != site.ID {
 			utils.RespondWithJSON(w, http.StatusUnauthorized, "unauthorized", nil)
 			return
@@ -135,7 +136,7 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	article, err := database.GetArticle(id)
+	article, err := database.GetArticle(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return

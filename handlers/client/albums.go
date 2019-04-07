@@ -6,11 +6,10 @@ import (
 	"github.com/backpulse/core/database"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
-	"gopkg.in/mgo.v2/bson"
 )
 
-// GetVideoGroups : return array of video group
-func GetVideoGroups(w http.ResponseWriter, r *http.Request) {
+// GetAlbums : return array of album
+func GetAlbums(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 
@@ -20,42 +19,42 @@ func GetVideoGroups(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	videogroups, err := database.GetVideoGroups(site.ID)
+	albums, err := database.GetAlbums(site.ID)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
 	}
 
-	utils.RespondWithJSON(w, http.StatusOK, "success", videogroups)
+	utils.RespondWithJSON(w, http.StatusOK, "success", albums)
 	return
 }
 
-// GetVideoGroup // return specific video group
-func GetVideoGroup(w http.ResponseWriter, r *http.Request) {
+// GetAlbum : return specific album
+func GetAlbum(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["short_id"]
 
-	videogroup, err := database.GetVideoGroupByShortID(id)
+	album, err := database.GetAlbumByShortID(id)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
 	}
 
-	utils.RespondWithJSON(w, http.StatusOK, "success", videogroup)
+	utils.RespondWithJSON(w, http.StatusOK, "success", album)
 	return
 }
 
-// GetVideo : return specific video informations
-func GetVideo(w http.ResponseWriter, r *http.Request) {
+// GetTrack : return specific track informations
+func GetTrack(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	id := vars["short_id"]
 
-	video, err := database.GetVideo(bson.ObjectIdHex(id))
+	track, err := database.GetTrackByShortID(id)
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
 	}
 
-	utils.RespondWithJSON(w, http.StatusOK, "success", video)
+	utils.RespondWithJSON(w, http.StatusOK, "success", track)
 	return
 }
