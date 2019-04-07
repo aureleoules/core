@@ -1,6 +1,6 @@
 module github.com/backpulse/core
 
-go 1.12
+go 1.11
 
 require (
 	cloud.google.com/go v0.37.2
