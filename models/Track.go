@@ -16,9 +16,10 @@ type Track struct {
 
 	AlbumID bson.ObjectId `json:"album_id" bson:"album_id"`
 
-	Image string `json:"image" bson:"image"`
-	Title string `json:"title" bson:"title"`
-	URL   string `json:"url" bson:"url"`
+	Image   string `json:"image" bson:"image"`
+	Title   string `json:"title" bson:"title"`
+	URL     string `json:"url" bson:"url"`
+	Content string `json:"content" bson:"content"`
 
 	Index int `json:"index" bson:"index"`
 

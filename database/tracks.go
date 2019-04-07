@@ -35,9 +35,10 @@ func GetAlbumTracks(id bson.ObjectId) ([]models.Track, error) {
 func UpdateTrack(id bson.ObjectId, track models.Track) error {
 	err := DB.C(tracksCollection).UpdateId(id, bson.M{
 		"$set": bson.M{
-			"title": track.Title,
-			"url":   track.URL,
-			"image": track.Image,
+			"title":   track.Title,
+			"url":     track.URL,
+			"image":   track.Image,
+			"content": track.Content,
 		},
 	})
 	return err
