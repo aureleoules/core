@@ -9,7 +9,7 @@ import (
 )
 
 // GetProject : return project using shortid
-func GetProject(shortID string) (models.Project, error) {
+func GetProjectByShortID(shortID string) (models.Project, error) {
 	var project models.Project
 	err := DB.C(projectsCollection).Find(bson.M{
 		"short_id": shortID,
@@ -20,11 +20,19 @@ func GetProject(shortID string) (models.Project, error) {
 	return project, err
 }
 
+// GetProject : return project using shortid
+func GetProject(id bson.ObjectId) (models.Project, error) {
+	var project models.Project
+	err := DB.C(projectsCollection).FindId(id).One(&project)
+
+	project.Title = getDefaultProjectTitle(project)
+
+	return project, err
+}
+
 // RemoveProject : remove project from db
-func RemoveProject(shortID string) error {
-	err := DB.C(projectsCollection).Remove(bson.M{
-		"short_id": shortID,
-	})
+func RemoveProject(id bson.ObjectId) error {
+	err := DB.C(projectsCollection).RemoveId(id)
 	return err
 }
 

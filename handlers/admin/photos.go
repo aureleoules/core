@@ -155,7 +155,9 @@ func UploadPhoto(w http.ResponseWriter, r *http.Request) {
 	} else if r.FormValue("is_project") == "true" {
 		// This is a project photo
 		photo.IsProject = true
-		p, err := database.GetProject(r.FormValue("project_id"))
+		projectID := r.FormValue("project_id")
+
+		p, err := database.GetProject(bson.ObjectIdHex(projectID))
 		if err != nil {
 			utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 			return

@@ -9,14 +9,15 @@ import (
 	"github.com/backpulse/core/models"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 )
 
 // DeleteProject : remove project from db
 func DeleteProject(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	shortID := vars["id"]
+	id := vars["id"]
 
-	project, _ := database.GetProject(shortID)
+	project, _ := database.GetProject(bson.ObjectIdHex(id))
 	site, _ := database.GetSiteByID(project.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))
 	if !utils.IsAuthorized(site, user) {
@@ -29,7 +30,7 @@ func DeleteProject(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := database.RemoveProject(shortID)
+	err := database.RemoveProject(bson.ObjectIdHex(id))
 	if err != nil {
 		utils.RespondWithJSON(w, http.StatusInternalServerError, "error", nil)
 		return
@@ -41,9 +42,9 @@ func DeleteProject(w http.ResponseWriter, r *http.Request) {
 // GetProject : return project using shortid
 func GetProject(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	shortID := vars["id"]
+	id := vars["id"]
 
-	project, err := database.GetProject(shortID)
+	project, err := database.GetProject(bson.ObjectIdHex(id))
 
 	site, _ := database.GetSiteByID(project.SiteID)
 	user, _ := database.GetUserByID(utils.GetUserObjectID(r))

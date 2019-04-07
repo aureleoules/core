@@ -27,3 +27,24 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 	utils.RespondWithJSON(w, http.StatusOK, "success", projects)
 	return
 }
+
+// GetProject return specific project
+func GetProject(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+	id := vars["short_id"]
+
+	_, err := database.GetSiteByName(name)
+	if err != nil {
+		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
+		return
+	}
+
+	project, err := database.GetProjectByShortID(id)
+	if err != nil {
+		utils.RespondWithJSON(w, http.StatusNotFound, err.Error(), nil)
+		return
+	}
+	utils.RespondWithJSON(w, http.StatusOK, "success", project)
+	return
+}
