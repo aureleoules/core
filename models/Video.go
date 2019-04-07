@@ -8,7 +8,8 @@ import (
 
 // Video struct
 type Video struct {
-	ID bson.ObjectId `json:"id" bson:"_id"`
+	ID      bson.ObjectId `json:"id" bson:"_id"`
+	ShortID string        `json:"short_id" bson:"short_id"`
 
 	OwnerID bson.ObjectId `json:"owner_id" bson:"owner_id"`
 	SiteID  bson.ObjectId `json:"site_id" bson:"site_id"`

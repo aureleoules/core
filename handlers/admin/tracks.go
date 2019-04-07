@@ -9,6 +9,7 @@ import (
 	"github.com/backpulse/core/models"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
+	"github.com/teris-io/shortid"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -54,7 +55,7 @@ func AddTrack(w http.ResponseWriter, r *http.Request) {
 
 	track.SiteID = site.ID
 	track.OwnerID = site.OwnerID
-
+	track.ShortID, _ = shortid.Generate()
 	track.ID = bson.NewObjectId()
 
 	tracks, _ := database.GetAlbumTracks(track.AlbumID)

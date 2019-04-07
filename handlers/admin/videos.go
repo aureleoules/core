@@ -10,6 +10,7 @@ import (
 	"github.com/backpulse/core/models"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
+	"github.com/teris-io/shortid"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -65,7 +66,7 @@ func AddVideo(w http.ResponseWriter, r *http.Request) {
 
 	video.SiteID = site.ID
 	video.OwnerID = site.OwnerID
-
+	video.ShortID, _ = shortid.Generate()
 	video.ID = bson.NewObjectId()
 
 	videos, _ := database.GetGroupVideos(video.VideoGroupID)
