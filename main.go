@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 	"os"
@@ -8,11 +9,25 @@ import (
 	"github.com/backpulse/core/database"
 	"github.com/backpulse/core/routes"
 	"github.com/backpulse/core/utils"
+	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
 
+var (
+	envFile string
+)
+
+func init() {
+	// env file and will load them into ENV for this process.
+	// will not overload value that defined in ENV had present.
+	flag.StringVar(&envFile, "env", ".env", "env config file")
+}
+
 func main() {
+	flag.Parse()
+
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	godotenv.Load(envFile)
 	config := utils.GetConfig()
 
 	database.Connect(config.URI, config.Database)

@@ -1,6 +1,7 @@
 vendor/
 .idea
 *.exe
+backpulse
 config.json
 backpulse.json
 google_credentials.json

@@ -5,4 +5,4 @@ if test -f ./setup; then
 fi
 
 export USER=backpulse
-exec gosu $USER /app/backpulse/backpulse
+exec gosu $USER /app/backpulse/backpulse -env /app/backpulse/.env

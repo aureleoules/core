@@ -29,12 +29,12 @@ make build
 ## Docker Build&Run
 ```bash
 docker build -t <your-backpulse-tag> .
-docker run -d --links <mongodb-container>:mongodb <your-backpulse-tag>
+docker run -d --link <mongodb-container>:mongodb <your-backpulse-tag>
 ```
 or docker run in custom environment
 ```bash
 docker run -d \
-           --links <mongodb-container>:mongodb \
+           --link <mongodb-container>:mongodb \
            --env MONGODB_URI=mongodb://mongodb:27017 \
            --env DATABASE=backpulse \
            <your-backpulse-tag>
