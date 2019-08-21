@@ -18,7 +18,7 @@ func InsertPhoto(photo models.Photo) (models.Photo, error) {
 func GetGalleryPhotos(id bson.ObjectId) ([]models.Photo, error) {
 	var photos []models.Photo
 	err := DB.C(photosCollection).Find(bson.M{
-		"is_gallery": true,
+		// "is_gallery": true,
 		"gallery_id": id,
 	}).All(&photos)
 	return photos, err
