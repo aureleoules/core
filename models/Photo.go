@@ -12,13 +12,18 @@ type Photo struct {
 	OwnerID bson.ObjectId `json:"owner_id" bson:"owner_id"`
 	SiteID  bson.ObjectId `json:"site_id" bson:"site_id"`
 
+	Title   string `json:"title" bson:"title"`
+	Content string `json:"content" bson:"content"`
+
 	URL    string `json:"url" bson:"url"`
 	Width  int    `json:"width" bson:"width"`
 	Height int    `json:"height" bson:"height"`
 	Format string `json:"format" bson:"format"`
 
-	IsGallery bool          `json:"is_gallery" bson:"is_gallery"`
-	GalleryID bson.ObjectId `json:"gallery_id" bson:"gallery_id,omitempty"`
+	GalleryName string `json:"gallery_name,omitempty" bson:"gallery_name,omitempty"`
+
+	IsGallery bool           `json:"is_gallery" bson:"is_gallery"`
+	GalleryID *bson.ObjectId `json:"gallery_id,omitempty" bson:"gallery_id,omitempty"`
 
 	IsProject bool          `json:"is_project" bson:"is_project"`
 	ProjectID bson.ObjectId `json:"project_id" bson:"project_id,omitempty"`

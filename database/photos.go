@@ -1,6 +1,9 @@
 package database
 
 import (
+	"log"
+	"time"
+
 	"github.com/backpulse/core/models"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -23,6 +26,7 @@ func GetGalleryPhotos(id bson.ObjectId) ([]models.Photo, error) {
 
 // DeletePhotos : delete multiple photos from db
 func DeletePhotos(userID bson.ObjectId, ids []bson.ObjectId) error {
+	log.Println(ids)
 	_, err := DB.C(photosCollection).RemoveAll(bson.M{
 		"owner_id": userID,
 		"_id": bson.M{
@@ -75,4 +79,34 @@ func UpdatePhotosIndexes(gallery models.Gallery, photos []models.Photo) error {
 		}
 	}
 	return nil
+}
+
+// UpdatePhoto updates title & content
+func UpdatePhoto(id bson.ObjectId, photo models.Photo) error {
+	update := bson.M{
+		"title":      photo.Title,
+		"content":    photo.Content,
+		"gallery_id": photo.GalleryID,
+		"url":        photo.URL,
+	}
+	err := DB.C(photosCollection).UpdateId(id, bson.M{
+		"$set": update,
+	})
+	return err
+}
+
+func CreatePhoto(photo models.Photo) (models.Photo, error) {
+	photo.ID = bson.NewObjectId()
+	photo.CreatedAt = time.Now()
+	err := DB.C(photosCollection).Insert(photo)
+	return photo, err
+}
+
+func UpdatePhotoURL(id bson.ObjectId, url string) error {
+	err := DB.C(photosCollection).UpdateId(id, bson.M{
+		"$set": bson.M{
+			"url": url,
+		},
+	})
+	return err
 }

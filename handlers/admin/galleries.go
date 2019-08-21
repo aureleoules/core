@@ -125,7 +125,7 @@ func SetGalleryPreview(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
-	if photo.SiteID != site.ID || photo.GalleryID != gallery.ID {
+	if photo.SiteID != site.ID || photo.GalleryID != &gallery.ID {
 		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
 		return
 	}
