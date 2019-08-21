@@ -21,6 +21,19 @@ func GetGallery(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func GetPhotos(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+	site, err := database.GetSiteByName(name)
+	if err != nil {
+		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
+		return
+	}
+	photos, _ := database.GetSitePhotos(site.ID)
+	utils.RespondWithJSON(w, http.StatusOK, "success", photos)
+	return
+}
+
 // GetGalleries : return array of galleries
 func GetGalleries(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
