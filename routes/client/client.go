@@ -30,6 +30,7 @@ func HandleClient(r *mux.Router) {
 	r.HandleFunc("/gallery/{short_id}", clientHandlers.GetGallery).Methods("GET")
 
 	r.HandleFunc("/photos", clientHandlers.GetPhotos).Methods("GET")
+	r.HandleFunc("/photos/{id}", clientHandlers.GetPhoto).Methods("GET")
 
 	r.HandleFunc("/projects", clientHandlers.GetProjects).Methods("GET")
 	r.HandleFunc("/projects/{short_id}", clientHandlers.GetProject).Methods("GET")

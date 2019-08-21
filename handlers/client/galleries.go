@@ -3,6 +3,8 @@ package clienthandlers
 import (
 	"net/http"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"github.com/backpulse/core/database"
 	"github.com/backpulse/core/utils"
 	"github.com/gorilla/mux"
@@ -31,6 +33,18 @@ func GetPhotos(w http.ResponseWriter, r *http.Request) {
 	}
 	photos, _ := database.GetSitePhotos(site.ID)
 	utils.RespondWithJSON(w, http.StatusOK, "success", photos)
+	return
+}
+
+func GetPhoto(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := bson.ObjectIdHex(vars["id"])
+	photo, err := database.GetPhotoByID(id)
+	if err != nil {
+		utils.RespondWithJSON(w, http.StatusNotFound, "not_found", nil)
+		return
+	}
+	utils.RespondWithJSON(w, http.StatusOK, "success", photo)
 	return
 }
 
