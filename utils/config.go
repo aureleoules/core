@@ -33,6 +33,7 @@ func GetConfig() models.Config {
 			GmailPassword: os.Getenv("GMAIL_PASSWORD"),
 			StripeKey:     os.Getenv("STRIPE_KEY"),
 			BucketName:    os.Getenv("BUCKET_NAME"),
+			BucketPubURL:  os.Getenv("BUCKET_PUB_URL"),
 		}
 		return config
 	}

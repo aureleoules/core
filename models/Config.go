@@ -9,4 +9,5 @@ type Config struct {
 	GmailPassword string
 	StripeKey     string
 	BucketName    string
+	BucketPubURL  string
 }

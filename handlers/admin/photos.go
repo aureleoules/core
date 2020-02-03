@@ -165,7 +165,7 @@ func UpdatePhotoFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	config := utils.GetConfig()
-	url := "https://" + config.BucketName + "/" + id.Hex()
+	url := "https://" + config.BucketPubURL + "/" + id.Hex()
 
 	err = database.UpdatePhotoURL(photoID, url)
 	if err != nil {
@@ -255,7 +255,7 @@ func UploadPhoto(w http.ResponseWriter, r *http.Request) {
 	}
 	photo.ID = id
 	config := utils.GetConfig()
-	photo.URL = "https://" + config.BucketName + "/" + id.Hex()
+	photo.URL = "https://" + config.BucketPubURL + "/" + id.Hex()
 
 	photo, err = database.InsertPhoto(photo)
 	if err != nil {
