@@ -110,7 +110,7 @@ func UploadFile(w http.ResponseWriter, r *http.Request) {
 		Size:      math.Round(float64(header.Size)/10000) / 100,
 		CreatedAt: time.Now(),
 		Type:      header.Header.Get("Content-Type"),
-		URL:       "https://" + config.BucketPubURL + "/" + id.Hex(),
+		URL:       config.BucketPubURL + "/" + id.Hex(),
 	}
 
 	err = database.InsertFile(fileObject)
