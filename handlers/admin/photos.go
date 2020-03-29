@@ -165,7 +165,7 @@ func UpdatePhotoFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	config := utils.GetConfig()
-	url := "https://" + config.BucketPubURL + "/" + id.Hex()
+	url := config.BucketPubURL + "/" + id.Hex()
 
 	err = database.UpdatePhotoURL(photoID, url)
 	if err != nil {
